@@ -11,15 +11,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Subir para public_html
+      # O login FTP já entra dentro de public_html, então o site vai na raiz do FTP.
+      - name: Subir para a raiz do site
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: 185.173.111.186
           username: u937190574.noticiasdelpais.online
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
-          server-dir: public_html/
+          server-dir: ./
           exclude: |
             **/.git*
             **/.git*/**
             .github/**
+
+      - name: Listar a raiz do FTP
+        env:
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          sudo apt-get install -y -qq lftp > /dev/null
+          lftp -c "set ftp:ssl-allow no; open -u u937190574.noticiasdelpais.online,$FTP_PASSWORD 185.173.111.186; cls -la"
