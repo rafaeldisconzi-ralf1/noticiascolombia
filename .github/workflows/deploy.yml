@@ -1,0 +1,23 @@
+name: Deploy FTP
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Subir para public_html
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: 185.173.111.186
+          username: u937190574.noticiasdelpais.online
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          server-dir: public_html/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
