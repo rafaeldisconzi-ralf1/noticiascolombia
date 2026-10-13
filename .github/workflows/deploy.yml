@@ -1,6 +1,8 @@
 name: Deploy FTP
 
 on:
+  push:
+    branches: [claude/epic-hopper-5v5m65]
   workflow_dispatch:
 
 jobs:
