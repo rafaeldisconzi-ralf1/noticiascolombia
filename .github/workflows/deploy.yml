@@ -26,6 +26,5 @@ jobs:
           lftp -c "set ftp:ssl-allow no; set net:max-retries 5; set net:reconnect-interval-base 5; set ftp:passive-mode on;
             open -u u937190574.noticiasdelpais.online,$FTP_PASSWORD 185.173.111.186;
             mirror -R --verbose --exclude-glob .git/ --exclude-glob .github/ --exclude-glob .gitignore ./ ./;
-            rm -rf public_html;
             rm -rf .git;
             echo '--- raiz do FTP ---'; cls -la"
